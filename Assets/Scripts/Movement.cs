@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    public Transform cam;
     public float speed = .1f;
+    public float turnSmoothTime = 0.1f;
+    float turnSmoothVelocity;
     // Update is called once per frame
     void Update()
     {
         float xDirection = Input.GetAxis("Horizontal");
         float zDirection = Input.GetAxis("Vertical");
 
-        Vector3 moveDirection = new Vector3(xDirection, 0.0f, zDirection);
+        Vector3 moveDirection = new Vector3(xDirection, 0.0f, zDirection).normalized;
 
-        transform.position += moveDirection * speed;
+        if (moveDirection.magnitude >= 0.1f)
+        {
+            float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) *Mathf.Rad2Deg + cam.eulerAngles.y; //move in the direction you are pressing + the cam.eulerAngles.y which connects to angle of camera
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime); //Smooth rotations
+            transform.rotation = Quaternion.Euler(0f,angle,0f); //rotation
+
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) *Vector3.forward;
+            transform.position += moveDir.normalized * speed; //movement
+        }
     }
 }
