@@ -10,8 +10,18 @@ public class BodySourceView : MonoBehaviour
     public BodySourceManager mBodySourceManager;
     public GameObject mJointObject;
 
+    public bool struggleAmount;
+    private bool isStruggle;
+
+    //movement
     public float sspeed = .1f;
     public Vector3 move;
+
+    //ButtonMasher
+    public float mashDelay = .5f;
+    float mash;
+    bool pressed;
+    bool started;
 
     private Dictionary<ulong, GameObject> mBodies = new Dictionary<ulong, GameObject>();
     private List<JointType> _joints = new List<JointType>
@@ -25,6 +35,8 @@ public class BodySourceView : MonoBehaviour
     private void Start()
     {
         move = this.transform.position;
+        mash = mashDelay;
+        isStruggle = struggleAmount;
     }
 
     void Update()
@@ -106,11 +118,18 @@ public class BodySourceView : MonoBehaviour
         {
             // Get new target position
             Joint sourceJoint = body.Joints[_joint];
-            if(_joint == JointType.Head)
-                Debug.Log("HEAD");
 
             Vector3 targetPosition = GetVector3FromJoint(sourceJoint);
-            Movement(sourceJoint);
+
+            if (isStruggle)
+            {
+                Struggle(sourceJoint);
+            }
+            else
+            {
+                Movement(sourceJoint);
+            }
+                
             targetPosition.z = 0;
 
             // Get joint, set new position
@@ -133,31 +152,65 @@ public class BodySourceView : MonoBehaviour
         float tempy = joint.Position.Y * 10;
         float tempz = joint.Position.Z * 10;
 
-        //Debug.Log("X" + tempx + " Y" + tempy + " Z" + tempz);
-
-
         if (tempx <= -2)
         {
             Debug.Log("LEFT");
-            move.x += sspeed;
+            move.x -= sspeed;
         }
         else if(tempx >= 2)
         {
             Debug.Log("RIGHT");
-            move.x -= sspeed;
+            move.x += sspeed;
         }
         if(tempz <= 13)
         {
             Debug.Log("FORWARD");
-            move.y += sspeed;
+            move.z += sspeed;
         }
         else if(tempz >= 18)
         {
             Debug.Log("BACKWARD");
-            move.y -= sspeed;
+            move.z -= sspeed;
         }
 
         this.transform.position = move;
+
+    }
+
+    public void Struggle(Joint joint)
+    {
+        float tempx = joint.Position.X * 10;
+        float tempy = joint.Position.Y * 10;
+        float tempz = joint.Position.Z * 10;
+
+        Debug.Log("STRUGGLE");
+
+        if (tempz <= 13)
+        {
+            started = true;
+            Debug.Log("Start");
+        }
+        if (started)
+        {
+            mash -= Time.deltaTime;
+            if (tempz>= 13 ||tempz<= 18 || tempx <= 2 ||tempx >= -2)
+            {
+                Debug.Log("Is Struggling");
+                pressed = true;
+                mash = mashDelay;
+
+            }
+            else if (tempz <= 13 ||tempz >= 18 ||tempx >= 2 ||tempx <= -2)
+            {
+                Debug.Log("STOPED Struggling");
+                pressed = false;
+            }
+            if (mash <= 0)
+            {
+                Debug.Log("You died");
+                Destroy(this);
+            }
+        }
 
     }
 }

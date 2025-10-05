@@ -8,12 +8,19 @@ public class Movement : MonoBehaviour
     public float speed = .1f;
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
+    //public GameObject BSV;
+
+    void start()
+    {
+       // BSV = GetComponent <BodySourceView>();
+}
+
     // Update is called once per frame
     void Update()
     {
         float xDirection = Input.GetAxis("Horizontal");
         float zDirection = Input.GetAxis("Vertical");
-
+        
         Vector3 moveDirection = new Vector3(xDirection, 0.0f, zDirection).normalized;
 
         if (moveDirection.magnitude >= 0.1f)
@@ -24,6 +31,18 @@ public class Movement : MonoBehaviour
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) *Vector3.forward;
             transform.position += moveDir.normalized * speed; //movement
+        }
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.CompareTag("StruggleArea"))
+        {
+            Debug.Log("INSTRUGGLE");
+        //    BSV.struggleAmount = true;
+
+
+
         }
     }
 }
