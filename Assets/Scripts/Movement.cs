@@ -10,10 +10,20 @@ public class Movement : MonoBehaviour
     float turnSmoothVelocity;
     public BodySourceView BSV;
 
+    public AudioSource moveSound;
+
+    //random environment sounds
+    public AudioSource[] sources;
+    private int clipIndex;
+    private int lastClipIndex;
+    private AudioSource audio;
+    private bool audioPlaying = false;
+
     void Start()
     {
         BSV = GetComponent<BodySourceView>();
         Debug.Log(BSV);
+        StartCoroutine(PlaySound());
     }
 
     // Update is called once per frame
@@ -46,5 +56,20 @@ public class Movement : MonoBehaviour
 
 
         }
+    }
+
+    IEnumerator PlaySound()
+    {
+        yield return new WaitForSeconds(Random.Range(10f, 20f));
+        lastClipIndex = clipIndex;
+        while (clipIndex == lastClipIndex)
+        {
+            clipIndex = Random.Range(0, sources.Length);
+            Debug.Log(clipIndex +" "+ lastClipIndex);
+        }
+        Debug.Log("Playing clip "+clipIndex);
+        sources[clipIndex].Play();
+        yield return new WaitForSeconds(Random.Range(10f, 20f));
+        StartCoroutine(PlaySound());
     }
 }

@@ -12,6 +12,7 @@ public class PlayerEating : MonoBehaviour
 
     PostProcessVolume _volume;
     Vignette _vignette;
+    Bloom _bloom;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,7 @@ public class PlayerEating : MonoBehaviour
         _volume = PPGO.GetComponent<PostProcessVolume>();
 
         _volume.profile.TryGetSettings<Vignette>(out _vignette);
+        _volume.profile.TryGetSettings<Bloom>(out _bloom);
 
         if (!_vignette)
         {
@@ -28,20 +30,31 @@ public class PlayerEating : MonoBehaviour
         {
             _vignette.enabled.Override(true);
         }
+
+        if (!_bloom)
+        {
+            print("error, bloom empty");
+        }
+        else
+        {
+            _bloom.enabled.Override(true);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        intensity += 0.0005f;
+        intensity += 0.0001f;
+        //max vignette size
         if (intensity > 1f) intensity = 1f;
         _vignette.intensity.Override(intensity);
+        _bloom.intensity.Override(intensity*20);
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            intensity = 0f;
-            _vignette.intensity.Override(0f);
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    intensity = 0f;
+        //    _vignette.intensity.Override(0f);
+        //}
     }
 
     private void OnTriggerEnter(Collider collision)
