@@ -511,7 +511,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -576,7 +576,7 @@ Transform:
   m_GameObject: {fileID: 146849526}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1105, y: 308, z: 43}
+  m_LocalPosition: {x: 1005.3, y: 308, z: -12.2}
   m_LocalScale: {x: 80.51482, y: 22.037, z: 22.037}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1834,6 +1834,7 @@ GameObject:
   - component: {fileID: 1035896878}
   - component: {fileID: 1035896879}
   - component: {fileID: 1035896880}
+  - component: {fileID: 1035896883}
   - component: {fileID: 1035896881}
   - component: {fileID: 1035896882}
   m_Layer: 0
@@ -1874,6 +1875,7 @@ MonoBehaviour:
   cam: {fileID: 201288507}
   speed: 0.1
   turnSmoothTime: 0.1
+  BSV: {fileID: 0}
 --- !u!114 &1035896879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1956,6 +1958,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &1035896883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035896876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d88837a04939054dbaf3d609fbdbd27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mashDelay: 0.5
+  BSV: {fileID: 0}
 --- !u!1 &1051682318
 GameObject:
   m_ObjectHideFlags: 0

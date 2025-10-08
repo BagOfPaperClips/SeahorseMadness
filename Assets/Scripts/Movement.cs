@@ -8,12 +8,13 @@ public class Movement : MonoBehaviour
     public float speed = .1f;
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
-    //public GameObject BSV;
+    public BodySourceView BSV;
 
-    void start()
+    void Start()
     {
-       // BSV = GetComponent <BodySourceView>();
-}
+        BSV = GetComponent<BodySourceView>();
+        Debug.Log(BSV);
+    }
 
     // Update is called once per frame
     void Update()
@@ -39,7 +40,8 @@ public class Movement : MonoBehaviour
         if (collision.CompareTag("StruggleArea"))
         {
             Debug.Log("INSTRUGGLE");
-        //    BSV.struggleAmount = true;
+            Debug.Log(BSV);
+            BSV.struggleAmount = true;
 
 
 
