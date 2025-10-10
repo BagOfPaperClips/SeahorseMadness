@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    public CharacterController controller;
+
     public Transform cam;
     public float speed = .1f;
     public float turnSmoothTime = 0.1f;
@@ -33,7 +35,7 @@ public class Movement : MonoBehaviour
         float zDirection = Input.GetAxis("Vertical");
         
         Vector3 moveDirection = new Vector3(xDirection, 0.0f, zDirection).normalized;
-
+        
         if (moveDirection.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) *Mathf.Rad2Deg + cam.eulerAngles.y; //move in the direction you are pressing + the cam.eulerAngles.y which connects to angle of camera
@@ -41,7 +43,9 @@ public class Movement : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f,angle,0f); //rotation
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) *Vector3.forward;
-            transform.position += moveDir.normalized * speed; //movement
+            controller.Move(moveDir * speed * Time.deltaTime);
+            //transform.position += moveDir.normalized * speed; //movement
+
         }
     }
 
