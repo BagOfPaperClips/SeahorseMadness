@@ -13,7 +13,6 @@ public class BodySourceView : MonoBehaviour
     public GameObject mJointObject;
 
     public bool struggleAmount;
-    private bool isStruggle;
 
     //movement
     public float sspeed = .1f;
@@ -45,7 +44,6 @@ public class BodySourceView : MonoBehaviour
     {
         move = this.transform.position;
         mash = mashDelay;
-        isStruggle = struggleAmount;
     }
 
     void Update()
@@ -130,7 +128,7 @@ public class BodySourceView : MonoBehaviour
 
             Vector3 targetPosition = GetVector3FromJoint(sourceJoint);
 
-            if (isStruggle)
+            if (struggleAmount)
             {
                 Struggle(sourceJoint);
             }
