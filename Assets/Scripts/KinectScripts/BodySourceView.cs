@@ -7,6 +7,8 @@ using Joint = Windows.Kinect.Joint;
 
 public class BodySourceView : MonoBehaviour
 {
+    public CharacterController controller;
+
     public BodySourceManager mBodySourceManager;
     public GameObject mJointObject;
 
@@ -16,6 +18,13 @@ public class BodySourceView : MonoBehaviour
     //movement
     public float sspeed = .1f;
     public Vector3 move;
+    public float tspeed = .1f;
+
+    public Transform cam;
+
+    float turnSmoothVelocity;
+    public float turnSmoothTime = 0.1f;
+
 
     //ButtonMasher
     public float mashDelay = .5f;
@@ -153,28 +162,97 @@ public class BodySourceView : MonoBehaviour
         float tempy = joint.Position.Y * 10;
         float tempz = joint.Position.Z * 10;
 
+        float xDir = 0;
+        float zDir = 0;
+
+        //-----------------------------------\\
+        //REGULAR CONTROLS
+
         if (tempx <= -2)
         {
             Debug.Log("LEFT");
-            move.x -= sspeed;
+            xDir = -1;
+
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, xDir*90, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation= Quaternion.Euler(0f,angle,0f);
+            //move.x -= sspeed *Time.deltaTime;
         }
         else if(tempx >= 2)
         {
             Debug.Log("RIGHT");
-            move.x += sspeed;
+            xDir = 1;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, xDir * 90, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            //move.x += sspeed * Time.deltaTime;
         }
-        if(tempz <= 13)
+        else if(tempz <= 13)
         {
             Debug.Log("FORWARD");
-            move.z += sspeed;
+            zDir = 1;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, zDir * 0, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            //move.z += sspeed * Time.deltaTime;
         }
         else if(tempz >= 18)
         {
             Debug.Log("BACKWARD");
-            move.z -= sspeed;
+            zDir = -1;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, zDir * 180, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            //move.z -= sspeed * Time.deltaTime;
+        }
+        else 
+        { 
+            //transform.rotation = Quaternion.Euler(0f, 0, 0f); 
         }
 
-        this.transform.position = move;
+
+
+            //-----------------------------------\\
+            //TANK CONTROLS
+            /*
+            float value = 0;
+            if (tempx <= -2)
+            {
+                Debug.Log("LEFT");
+                xDir = -1;
+                seahorse.transform.Rotate(0.0f, xDir * tspeed, 0.0f);
+                value = seahorse.transform.rotation.y;
+                //move.x -= sspeed *Time.deltaTime;
+            }
+            else if (tempx >= 2)
+            {
+                Debug.Log("RIGHT");
+                xDir = 1;
+                seahorse.transform.Rotate(0.0f, xDir * tspeed,0.0f);
+                value = seahorse.transform.rotation.y;
+                //move.x += sspeed * Time.deltaTime;
+            }
+            if (tempz <= 13)
+            {
+                Debug.Log("FORWARD");
+                zDir = 1;
+                seahorse.transform.Rotate(0.0f, 0.0f, 0.0f);
+                value = seahorse.transform.rotation.y;
+                //move.z += sspeed * Time.deltaTime;
+            }
+            else if (tempz >= 18)
+            {
+                Debug.Log("BACKWARD");
+                zDir = -1;
+                seahorse.transform.Rotate(0.0f, 0.0f, 0.0f);
+                value = seahorse.transform.rotation.y;
+                //move.z -= sspeed * Time.deltaTime;
+            */
+            //this.transform.position = move;
+
+            //Regular Controls
+            Vector3 v = new Vector3(xDir, 0.0f, zDir);
+
+        //Tank Controls
+        //Vector3 v = new Vector3(0f, 0f, value);
+        
+        controller.Move(v * sspeed * Time.deltaTime);
 
     }
 
