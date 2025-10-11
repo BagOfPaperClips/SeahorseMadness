@@ -4921,11 +4921,9 @@ MonoBehaviour:
   mJointObject: {fileID: 1581252307236616, guid: 184f2a9019d03ed47bc3d16a742f1acc, type: 3}
   struggleAmount: 0
   sspeed: 6
-  move: {x: 0, y: 0, z: 0}
   tspeed: 2
   cam: {fileID: 201288507}
   turnSmoothTime: 0.1
-  mashDelay: 0.5
 --- !u!114 &1035896880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5400,7 +5398,7 @@ GameObject:
   - component: {fileID: 1337780445}
   - component: {fileID: 1337780444}
   m_Layer: 0
-  m_Name: Net (1)
+  m_Name: OutOfNet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5486,7 +5484,7 @@ Transform:
   m_GameObject: {fileID: 1337780443}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 959.1956, y: 306.59, z: 289.36}
+  m_LocalPosition: {x: 959.1956, y: 306.59, z: 316.74}
   m_LocalScale: {x: 3.869949, y: 1.4313, z: 5.341039}
   m_ConstrainProportionsScale: 0
   m_Children: []

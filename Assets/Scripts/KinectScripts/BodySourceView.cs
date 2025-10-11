@@ -16,7 +16,6 @@ public class BodySourceView : MonoBehaviour
 
     //movement
     public float sspeed = .1f;
-    public Vector3 move;
     public float tspeed = .1f;
 
     public Transform cam;
@@ -24,12 +23,7 @@ public class BodySourceView : MonoBehaviour
     float turnSmoothVelocity;
     public float turnSmoothTime = 0.1f;
 
-
-    //ButtonMasher
-    public float mashDelay = .5f;
-    float mash;
-    bool pressed;
-    bool started;
+    private float pastdir = 0;
 
     private Dictionary<ulong, GameObject> mBodies = new Dictionary<ulong, GameObject>();
     private List<JointType> _joints = new List<JointType>
@@ -40,11 +34,6 @@ public class BodySourceView : MonoBehaviour
         JointType.SpineBase,
         JointType.Head,
     };
-    private void Start()
-    {
-        move = this.transform.position;
-        mash = mashDelay;
-    }
 
     void Update()
     {
@@ -154,7 +143,6 @@ public class BodySourceView : MonoBehaviour
 
     public void Movement(Joint joint)
     {
-        //ADD TANK CONTROLS
         Debug.Log("Inside");
         float tempx = joint.Position.X * 10;
         float tempy = joint.Position.Y * 10;
@@ -198,10 +186,6 @@ public class BodySourceView : MonoBehaviour
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, zDir * 180, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             //move.z -= sspeed * Time.deltaTime;
-        }
-        else 
-        { 
-            //transform.rotation = Quaternion.Euler(0f, 0, 0f); 
         }
 
 
@@ -260,34 +244,59 @@ public class BodySourceView : MonoBehaviour
         float tempy = joint.Position.Y * 10;
         float tempz = joint.Position.Z * 10;
 
+        float movevar = 3f;
+        float strugglespeed = 100f;
+
         Debug.Log("STRUGGLE");
 
-        if (tempz <= 13)
-        {
-            started = true;
-            Debug.Log("Start");
-        }
-        if (started)
-        {
-            mash -= Time.deltaTime;
-            if (tempz>= 13 ||tempz<= 18 || tempx <= 2 ||tempx >= -2)
-            {
-                Debug.Log("Is Struggling");
-                pressed = true;
-                mash = mashDelay;
+        
 
-            }
-            else if (tempz <= 13 ||tempz >= 18 ||tempx >= 2 ||tempx <= -2)
+        if (tempx <= -2)
+        {
+            Debug.Log("LEFT");
+            if (pastdir != 1)
             {
-                Debug.Log("STOPED Struggling");
-                pressed = false;
+                transform.position += new Vector3(0, 0, movevar);
             }
-            if (mash <= 0)
-            {
-                Debug.Log("You died");
-                Destroy(this);
-            }
+            pastdir = 1;
+
         }
+        else if (tempx >= 2)
+        {
+            Debug.Log("RIGHT");
+            if (pastdir != 2)
+            {
+                transform.position += new Vector3(0, 0, movevar);
+            }
+            pastdir = 2;
+            
+        }
+        /*
+        else if (tempz <= 13)
+        {
+            Debug.Log("FORWARD");
+            if (pastdir != 3)
+            {
+                Debug.Log("forwardMoving");
+                transform.position += new Vector3(0, 0, movevar);
+            }
+            pastdir = 3;
+            
+        }
+        else if (tempz >= 18)
+        {
+            Debug.Log("BACKWARD");
+            if (pastdir != 4)
+            {
+                transform.position += new Vector3(0, 0, movevar);
+            }
+            pastdir = 4;
+            
+        }
+        */
+
+        Debug.Log(pastdir);
+        
 
     }
 }

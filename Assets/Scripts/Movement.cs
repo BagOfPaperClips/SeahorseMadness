@@ -60,8 +60,7 @@ public class Movement : MonoBehaviour
             Debug.Log("INSTRUGGLE");
             Debug.Log(BSV);
             BSV.struggleAmount = true;
-
-
+            
 
         }
         else

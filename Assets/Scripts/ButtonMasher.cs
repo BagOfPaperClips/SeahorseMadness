@@ -40,6 +40,7 @@ public class ButtonMasher : MonoBehaviour
                 transform.position += new Vector3(0, 0, 2);
                 //transform.position=
             }
+            /*
             if (started)
             {
                 elapsedTime += Time.deltaTime;
@@ -79,6 +80,7 @@ public class ButtonMasher : MonoBehaviour
                     elapsedTime = 0;
                 }
             }
+            */
         }
 
     }
