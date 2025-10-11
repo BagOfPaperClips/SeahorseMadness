@@ -31,22 +31,26 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float xDirection = Input.GetAxis("Horizontal");
-        float zDirection = Input.GetAxis("Vertical");
-        
-        Vector3 moveDirection = new Vector3(xDirection, 0.0f, zDirection).normalized;
-        
-        if (moveDirection.magnitude >= 0.1f)
+        if (BSV.struggleAmount == false)
         {
-            float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) *Mathf.Rad2Deg + cam.eulerAngles.y; //move in the direction you are pressing + the cam.eulerAngles.y which connects to angle of camera
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime); //Smooth rotations
-            transform.rotation = Quaternion.Euler(0f,angle,0f); //rotation
+            float xDirection = Input.GetAxis("Horizontal");
+            float zDirection = Input.GetAxis("Vertical");
 
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.Move(moveDir * speed * Time.deltaTime);
-            //transform.position += moveDir.normalized * speed; //movement
+            Vector3 moveDirection = new Vector3(xDirection, 0.0f, zDirection).normalized;
 
+            if (moveDirection.magnitude >= 0.1f)
+            {
+                float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + cam.eulerAngles.y; //move in the direction you are pressing + the cam.eulerAngles.y which connects to angle of camera
+                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime); //Smooth rotations
+                transform.rotation = Quaternion.Euler(0f, angle, 0f); //rotation
+
+                Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+                controller.Move(moveDir * speed * Time.deltaTime);
+                //transform.position += moveDir.normalized * speed; //movement
+
+            }
         }
+        
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -56,10 +60,14 @@ public class Movement : MonoBehaviour
             Debug.Log("INSTRUGGLE");
             Debug.Log(BSV);
             BSV.struggleAmount = true;
-
-
+            
 
         }
+        else
+        {
+            BSV.struggleAmount = false;
+        }
+        
     }
 
     IEnumerator PlaySound()
