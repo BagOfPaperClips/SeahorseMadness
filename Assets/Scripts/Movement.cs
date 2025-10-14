@@ -15,17 +15,26 @@ public class Movement : MonoBehaviour
     public AudioSource moveSound;
 
     //random environment sounds
+    public AudioSource ambiance;
     public AudioSource[] sources;
     private int clipIndex;
     private int lastClipIndex;
     private AudioSource audio;
     private bool audioPlaying = false;
 
+    public float tbplaymin;
+    public float tbplaymax;
+
     void Start()
     {
         BSV = GetComponent<BodySourceView>();
         Debug.Log(BSV);
+
+        //sound
         StartCoroutine(PlaySound());
+        ambiance.Play();
+        tbplaymin = 7.5f;
+        tbplaymax = 15f;
     }
 
     // Update is called once per frame
@@ -72,7 +81,7 @@ public class Movement : MonoBehaviour
 
     IEnumerator PlaySound()
     {
-        yield return new WaitForSeconds(Random.Range(10f, 20f));
+        yield return new WaitForSeconds(Random.Range(tbplaymin, tbplaymax));
         lastClipIndex = clipIndex;
         while (clipIndex == lastClipIndex)
         {
@@ -81,7 +90,7 @@ public class Movement : MonoBehaviour
         }
         Debug.Log("Playing clip "+clipIndex);
         sources[clipIndex].Play();
-        yield return new WaitForSeconds(Random.Range(10f, 20f));
+        yield return new WaitForSeconds(Random.Range(tbplaymin, tbplaymax));
         StartCoroutine(PlaySound());
     }
 }

@@ -6,13 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class PlayerEating : MonoBehaviour
 {
-
+    //post processing game object
     public GameObject PPGO;
     public float intensity = 0;
 
     PostProcessVolume _volume;
     Vignette _vignette;
     Bloom _bloom;
+
+    //sound
+    public AudioSource eatSound;
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +67,7 @@ public class PlayerEating : MonoBehaviour
             Debug.Log("Food collected: ");
             intensity = 0f;
             _vignette.intensity.Override(0f);
+            eatSound.Play();
         }
     }
 }
