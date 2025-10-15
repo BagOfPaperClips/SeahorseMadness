@@ -21896,6 +21896,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a377cb0d51fdf7d48adfd20a9ff104b1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6837e2b389896bd428b599bd7dfd8b92, type: 2}
+    - target: {fileID: -7511558181221131132, guid: a377cb0d51fdf7d48adfd20a9ff104b1, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4ed33de2fe344604488ba302a9bc1e79, type: 2}
     - target: {fileID: 919132149155446097, guid: a377cb0d51fdf7d48adfd20a9ff104b1, type: 3}
       propertyPath: m_Name
       value: Coral_02
@@ -25387,6 +25395,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b8076f660567e544fb88947eaf24eae6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf5cbf4de7515fe478aec7f6c2779636, type: 2}
+    - target: {fileID: -7511558181221131132, guid: b8076f660567e544fb88947eaf24eae6, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: d3a57f1e18b3a8c44934cdbf58539d60, type: 2}
     - target: {fileID: 919132149155446097, guid: b8076f660567e544fb88947eaf24eae6, type: 3}
       propertyPath: m_Name
       value: Coral_01
