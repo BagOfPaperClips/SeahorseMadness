@@ -3,7 +3,12 @@ guid: 9ffb7ce0904970747bed102027f7dad2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AquaPlant_01
+    second: {fileID: 2100000, guid: 658e7a248cd4bc541b30acc54feb578d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
