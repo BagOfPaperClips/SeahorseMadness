@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Foodcollect : MonoBehaviour
 {
+    SphereCollider _collider;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +21,9 @@ public class Foodcollect : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Destroy(gameObject,1);
+            _collider=gameObject.GetComponent<SphereCollider>();
+            _collider.enabled=false;
+            Destroy(gameObject,0.8f);
         }
     }
 }

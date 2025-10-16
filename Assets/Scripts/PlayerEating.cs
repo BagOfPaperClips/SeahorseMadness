@@ -17,6 +17,10 @@ public class PlayerEating : MonoBehaviour
     //sound
     public AudioSource eatSound;
 
+    //endscreen countdown (hidden to players)
+    public float timeRemaining = 4;
+    public bool timerIsRunning = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +57,24 @@ public class PlayerEating : MonoBehaviour
         _vignette.intensity.Override(intensity);
         _bloom.intensity.Override(intensity*20);
 
+        if (intensity == 1f) {
+            timerIsRunning = true;
+            Debug.Log("Timer is running");
+        }
+        if (timerIsRunning)
+        {
+            if (timeRemaining > 0)
+            {
+                timeRemaining -= Time.deltaTime;
+            }
+            else
+            {
+                Debug.Log("Time has run out! You died of starvation");
+                timeRemaining = 0;
+                timerIsRunning = false;
+                //go to endscreen
+            }
+        }
         //if (Input.GetMouseButtonDown(0))
         //{
         //    intensity = 0f;
@@ -68,6 +90,8 @@ public class PlayerEating : MonoBehaviour
             intensity = 0f;
             _vignette.intensity.Override(0f);
             eatSound.Play();
+            timerIsRunning = false;
+            timeRemaining = 5;
         }
     }
 }
