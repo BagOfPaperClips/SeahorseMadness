@@ -12,7 +12,9 @@ public class Movement : MonoBehaviour
     float turnSmoothVelocity;
     public BodySourceView BSV;
 
+    //movement sounds
     public AudioSource moveSound;
+    private bool _moving;
 
     //random environment sounds
     public AudioSource ambiance;
@@ -33,8 +35,8 @@ public class Movement : MonoBehaviour
         //sound
         StartCoroutine(PlaySound());
         ambiance.Play();
-        tbplaymin = 7.5f;
-        tbplaymax = 15f;
+        tbplaymin = 8;
+        tbplaymax = 15;
     }
 
     // Update is called once per frame
@@ -56,7 +58,16 @@ public class Movement : MonoBehaviour
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
                 controller.Move(moveDir * speed * Time.deltaTime);
                 //transform.position += moveDir.normalized * speed; //movement
-
+                if (_moving == false)
+                {
+                    moveSound.Play();
+                    _moving = true;
+                }
+            }
+            else
+            {
+                moveSound.Pause();
+                _moving = false;
             }
         }
         

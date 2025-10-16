@@ -16,8 +16,10 @@ public class PlayerEating : MonoBehaviour
 
     //sound
     public AudioSource eatSound;
+    public AudioSource full;
 
     //endscreen countdown (hidden to players)
+    private bool _isEating = false;
     public float timeRemaining = 4;
     public bool timerIsRunning = false;
 
@@ -51,9 +53,23 @@ public class PlayerEating : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        intensity += 0.0001f;
-        //max vignette size
+        if (_isEating == false)
+        {
+            intensity += 0.0001f;
+        }
+        else
+        {
+            intensity -= 0.005f;
+        }
+        //max vignette sizes
         if (intensity > 1f) intensity = 1f;
+        if (intensity < 0f)
+        {
+            _isEating = false;
+            full.Play();
+            intensity = 0f;
+        }
+        //change vignette and bloom
         _vignette.intensity.Override(intensity);
         _bloom.intensity.Override(intensity*20);
 
@@ -87,11 +103,12 @@ public class PlayerEating : MonoBehaviour
         if (collision.CompareTag("Food"))
         {
             Debug.Log("Food collected: ");
-            intensity = 0f;
-            _vignette.intensity.Override(0f);
+            //intensity = 0f;
+            //_vignette.intensity.Override(0f);
             eatSound.Play();
             timerIsRunning = false;
             timeRemaining = 5;
+            _isEating = true;
         }
     }
 }
