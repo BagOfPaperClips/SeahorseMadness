@@ -17,15 +17,27 @@ public class Movement : MonoBehaviour
     private bool _moving;
 
     //random environment sounds
-    public AudioSource ambiance;
+    public AudioSource ambiance1;
+    public AudioSource ambiance2;
+    private bool _ambiance2;
+
+    //creaks
     public AudioSource[] sources;
     private int clipIndex;
     private int lastClipIndex;
     private AudioSource audio;
     private bool audioPlaying = false;
 
-    public float tbplaymin;
-    public float tbplaymax;
+    private float tbplaymin;
+    private float tbplaymax;
+    private float tbplayadd;
+    private float tbplay1;
+    private float tbplay2;
+
+    //struggle sounds
+    public AudioSource[] struggles;
+    private bool _struggling=false;
+    public AudioSource struggleEnd;
 
     void Start()
     {
@@ -34,7 +46,7 @@ public class Movement : MonoBehaviour
 
         //sound
         StartCoroutine(PlaySound());
-        ambiance.Play();
+        ambiance1.Play();
         tbplaymin = 8;
         tbplaymax = 15;
     }
@@ -70,6 +82,14 @@ public class Movement : MonoBehaviour
                 _moving = false;
             }
         }
+        else
+        {
+            if (_struggling == false)
+            {
+                StartCoroutine(PlayStruggle());
+                _struggling = true;
+            }
+        }
         
     }
 
@@ -80,19 +100,34 @@ public class Movement : MonoBehaviour
             Debug.Log("INSTRUGGLE");
             Debug.Log(BSV);
             BSV.struggleAmount = true;
-            
-
+            StartCoroutine(PlayStruggle());
         }
         else
         {
             BSV.struggleAmount = false;
+            struggleEnd.Play();
+
         }
-        
+        if (collision.CompareTag("AudioZone1"))
+        {
+            if (_ambiance2 == false)
+            {
+                ambiance1.Pause();
+                ambiance2.Play();
+                _ambiance2= true;
+                Debug.Log("Ambiance area 2");
+                tbplaymin = 10;
+                tbplaymax = 30;
+                StartCoroutine(PlaySound());
+            }
+        }
     }
 
     IEnumerator PlaySound()
     {
-        yield return new WaitForSeconds(Random.Range(tbplaymin, tbplaymax));
+        tbplay1 = Random.Range(tbplaymin, tbplaymax);
+        Debug.Log(tbplay1);
+        yield return new WaitForSeconds(tbplay1);
         lastClipIndex = clipIndex;
         while (clipIndex == lastClipIndex)
         {
@@ -101,7 +136,19 @@ public class Movement : MonoBehaviour
         }
         Debug.Log("Playing clip "+clipIndex);
         sources[clipIndex].Play();
-        yield return new WaitForSeconds(Random.Range(tbplaymin, tbplaymax));
+        tbplay2 = Random.Range(tbplaymin, tbplaymax);
+        Debug.Log(tbplay2);
+        yield return new WaitForSeconds(tbplay2);
         StartCoroutine(PlaySound());
+    }
+
+    IEnumerator PlayStruggle()
+    {
+        yield return new WaitForSeconds(Random.Range(1, 4));
+        clipIndex = Random.Range(0, struggles.Length);
+        Debug.Log("Struggle " + clipIndex);
+        struggles[clipIndex].Play();
+        yield return new WaitForSeconds(Random.Range(1, 4));
+        _struggling = false;
     }
 }

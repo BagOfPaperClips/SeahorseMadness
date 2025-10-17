@@ -16,7 +16,8 @@ public class ButtonMasher : MonoBehaviour
     float countdownTimer = 4;
     float elapsedTime;
 
-
+    //struggle sound
+    public AudioSource struggleButton;
 
     // Start is called before the first frame update
     void Start()
@@ -30,15 +31,16 @@ public class ButtonMasher : MonoBehaviour
     {
         if (BSV.struggleAmount)
         {
-
-
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 //started = true;
-                Debug.Log("Start");
+                Debug.Log("Space pressed");
                 //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, xDir * 90, ref turnSmoothVelocity, SmoothTime);
                 transform.position += new Vector3(0, 0, 2);
                 //transform.position=
+
+                //sound plays each key press
+                struggleButton.Play();
             }
             /*
             if (started)
