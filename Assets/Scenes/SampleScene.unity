@@ -27359,6 +27359,7 @@ MonoBehaviour:
   struggleAmount: 0
   sspeed: 6
   tspeed: 2
+  moveSound: {fileID: 1269701956}
   cam: {fileID: 201288507}
   turnSmoothTime: 0.1
 --- !u!114 &1035896880
