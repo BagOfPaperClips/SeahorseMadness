@@ -22,6 +22,9 @@ public class BodySourceView : MonoBehaviour
     public UnityEngine.AudioSource moveSound;
     private bool _moving;
 
+    //struggle sounds
+    public UnityEngine.AudioSource struggleButton;
+
     public Transform cam;
 
     float turnSmoothVelocity;
@@ -281,6 +284,7 @@ public class BodySourceView : MonoBehaviour
         if (tempx <= -2)
         {
             Debug.Log("LEFT");
+            struggleButton.Play();
             if (pastdir != 1)
             {
                 transform.position += new Vector3(0, 0, movevar);
@@ -291,6 +295,7 @@ public class BodySourceView : MonoBehaviour
         else if (tempx >= 2)
         {
             Debug.Log("RIGHT");
+            struggleButton.Play();
             if (pastdir != 2)
             {
                 transform.position += new Vector3(0, 0, movevar);
