@@ -104,8 +104,9 @@ public class Movement : MonoBehaviour
         }
         else
         {
+            if (BSV.struggleAmount == true) struggleEnd.Play();
             BSV.struggleAmount = false;
-            struggleEnd.Play();
+
 
         }
         if (collision.CompareTag("AudioZone1"))
