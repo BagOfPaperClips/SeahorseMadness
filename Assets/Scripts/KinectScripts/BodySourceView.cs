@@ -284,9 +284,9 @@ public class BodySourceView : MonoBehaviour
         if (tempx <= -2)
         {
             Debug.Log("LEFT");
-            struggleButton.Play();
             if (pastdir != 1)
             {
+                struggleButton.Play();
                 transform.position += new Vector3(0, 0, movevar);
             }
             pastdir = 1;
@@ -295,9 +295,9 @@ public class BodySourceView : MonoBehaviour
         else if (tempx >= 2)
         {
             Debug.Log("RIGHT");
-            struggleButton.Play();
             if (pastdir != 2)
             {
+                struggleButton.Play();
                 transform.position += new Vector3(0, 0, movevar);
             }
             pastdir = 2;
