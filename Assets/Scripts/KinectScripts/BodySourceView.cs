@@ -18,6 +18,10 @@ public class BodySourceView : MonoBehaviour
     public float sspeed = .1f;
     public float tspeed = .1f;
 
+    //movement sounds
+    public UnityEngine.AudioSource moveSound;
+    private bool _moving;
+
     public Transform cam;
 
     float turnSmoothVelocity;
@@ -162,6 +166,11 @@ public class BodySourceView : MonoBehaviour
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, xDir*90, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation= Quaternion.Euler(0f,angle,0f);
             //move.x -= sspeed *Time.deltaTime;
+            if (_moving == false)
+            {
+                moveSound.Play();
+                _moving = true;
+            }
         }
         else if(tempx >= 2)
         {
@@ -170,6 +179,11 @@ public class BodySourceView : MonoBehaviour
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, xDir * 90, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             //move.x += sspeed * Time.deltaTime;
+            if (_moving == false)
+            {
+                moveSound.Play();
+                _moving = true;
+            }
         }
         else if(tempz <= 13)
         {
@@ -178,6 +192,11 @@ public class BodySourceView : MonoBehaviour
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, zDir * 0, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             //move.z += sspeed * Time.deltaTime;
+            if (_moving == false)
+            {
+                moveSound.Play();
+                _moving = true;
+            }
         }
         else if(tempz >= 18)
         {
@@ -186,6 +205,16 @@ public class BodySourceView : MonoBehaviour
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, zDir * 180, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             //move.z -= sspeed * Time.deltaTime;
+            if (_moving == false)
+            {
+                moveSound.Play();
+                _moving = true;
+            }
+        }
+        else
+        {
+            moveSound.Pause();
+            _moving = false;
         }
 
 
@@ -248,8 +277,6 @@ public class BodySourceView : MonoBehaviour
         float strugglespeed = 100f;
 
         Debug.Log("STRUGGLE");
-
-        
 
         if (tempx <= -2)
         {
