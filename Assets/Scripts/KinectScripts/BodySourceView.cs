@@ -13,7 +13,7 @@ public class BodySourceView : MonoBehaviour
     public GameObject mJointObject;
 
     public bool struggleAmount;
-
+    
     //movement
     public float sspeed = .1f;
     public float tspeed = .1f;

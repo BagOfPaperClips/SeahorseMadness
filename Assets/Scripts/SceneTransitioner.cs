@@ -15,6 +15,16 @@ public class SceneTransitioner : MonoBehaviour
         SceneManager.LoadScene("SampleScene");
     }
 
+    public void Death()
+    {
+        SceneManager.LoadScene("DeathScreen");
+    }
+
+    public void FinalDeath()
+    {
+        SceneManager.LoadScene("FinalDeathScreen");
+    }
+
     public void Credits()
     {
         SceneManager.LoadScene("Credits");
