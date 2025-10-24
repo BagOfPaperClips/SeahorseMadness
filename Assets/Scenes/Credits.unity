@@ -343,15 +343,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Sound design: SAM O
 
-    Food Mecahincs: Sam o
+    Hunger Mecahinc: Sam O
 
-    Kinect movement: Sam
-    G
+    All Movement & Struggle
+    movmenet Sam G
 
     art & level design: calvin'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c2b78851d4093c441b87e8f0fe3f77ed, type: 2}
-  m_sharedMaterial: {fileID: 8757571151060798390, guid: c2b78851d4093c441b87e8f0fe3f77ed, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a86c8aa08ddede943b9d2a58675b0753, type: 2}
+  m_sharedMaterial: {fileID: 2116049416314189783, guid: a86c8aa08ddede943b9d2a58675b0753, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -375,8 +375,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16.1
-  m_fontSizeBase: 16.1
+  m_fontSize: 20.35
+  m_fontSizeBase: 20.35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -582,7 +582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.85490197, g: 0.8509804, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
