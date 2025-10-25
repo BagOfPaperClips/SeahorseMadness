@@ -59,6 +59,13 @@ public class Movement : MonoBehaviour
             float xDirection = Input.GetAxis("Horizontal");
             float zDirection = Input.GetAxis("Vertical");
 
+            if (BSV.isKinect)
+            {
+                xDirection = BSV.xDir;
+                zDirection = BSV.zDir;
+            }
+
+
             Vector3 moveDirection = new Vector3(xDirection, 0.0f, zDirection).normalized;
 
             if (moveDirection.magnitude >= 0.1f)
@@ -68,7 +75,7 @@ public class Movement : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0f, angle, 0f); //rotation
 
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-                controller.Move(moveDir * speed * Time.deltaTime);
+                controller.Move(moveDir* speed * Time.deltaTime);
                 //transform.position += moveDir.normalized * speed; //movement
                 if (_moving == false)
                 {

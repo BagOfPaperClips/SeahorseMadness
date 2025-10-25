@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using Windows.Kinect;
 using Joint = Windows.Kinect.Joint;
+using Unity.VisualScripting;
 
 public class BodySourceView : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class BodySourceView : MonoBehaviour
     //movement
     public float sspeed = .1f;
     public float tspeed = .1f;
+
+    public bool isKinect = false;
+
+    public float xDir = 0;
+    public float zDir = 0;
 
     //movement sounds
     public UnityEngine.AudioSource moveSound;
@@ -90,6 +96,8 @@ public class BodySourceView : MonoBehaviour
 
                 // Update positions
                 UpdateBodyObject(body, mBodies[body.TrackingId]);
+
+                isKinect = true;
             }
         }
         #endregion
@@ -155,8 +163,8 @@ public class BodySourceView : MonoBehaviour
         float tempy = joint.Position.Y * 10;
         float tempz = joint.Position.Z * 10;
 
-        float xDir = 0;
-        float zDir = 0;
+        xDir = 0;
+        zDir = 0;
 
         //-----------------------------------\\
         //REGULAR CONTROLS
@@ -167,7 +175,7 @@ public class BodySourceView : MonoBehaviour
             xDir = -1;
 
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, xDir*90, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation= Quaternion.Euler(0f,angle,0f);
+            //transform.rotation= Quaternion.Euler(0f,angle,0f);
             //move.x -= sspeed *Time.deltaTime;
             if (_moving == false)
             {
@@ -180,7 +188,7 @@ public class BodySourceView : MonoBehaviour
             Debug.Log("RIGHT");
             xDir = 1;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, xDir * 90, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            //transform.rotation = Quaternion.Euler(0f, angle, 0f);
             //move.x += sspeed * Time.deltaTime;
             if (_moving == false)
             {
@@ -193,7 +201,7 @@ public class BodySourceView : MonoBehaviour
             Debug.Log("FORWARD");
             zDir = 1;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, zDir * 0, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            //transform.rotation = Quaternion.Euler(0f, angle, 0f);
             //move.z += sspeed * Time.deltaTime;
             if (_moving == false)
             {
@@ -206,7 +214,7 @@ public class BodySourceView : MonoBehaviour
             Debug.Log("BACKWARD");
             zDir = -1;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, zDir * 180, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            //transform.rotation = Quaternion.Euler(0f, angle, 0f);
             //move.z -= sspeed * Time.deltaTime;
             if (_moving == false)
             {
@@ -261,12 +269,13 @@ public class BodySourceView : MonoBehaviour
             //this.transform.position = move;
 
             //Regular Controls
+
             Vector3 v = new Vector3(xDir, 0.0f, zDir);
 
         //Tank Controls
         //Vector3 v = new Vector3(0f, 0f, value);
         
-        controller.Move(v * sspeed * Time.deltaTime);
+        //controller.Move(v * sspeed * Time.deltaTime);
 
     }
 
