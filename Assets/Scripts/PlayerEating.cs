@@ -24,6 +24,13 @@ public class PlayerEating : MonoBehaviour
     public bool timerIsRunning = false;
 
     // Start is called before the first frame update
+    void Awake()
+    {
+        QualitySettings.vSyncCount = 0;  // VSync must be disabled
+        Application.targetFrameRate = 60;
+    }
+
+
     void Start()
     {
         _volume = PPGO.GetComponent<PostProcessVolume>();
@@ -55,11 +62,11 @@ public class PlayerEating : MonoBehaviour
     {
         if (_isEating == false)
         {
-            intensity += 0.0001f;
+            intensity += 0.0007f ;
         }
         else
         {
-            intensity -= 0.005f;
+            intensity -= 0.035f;
         }
         //max vignette sizes
         if (intensity > 1f) intensity = 1f;
