@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class Hand : MonoBehaviour
 {
@@ -12,29 +14,16 @@ public class Hand : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
-    { 
+    {
+        if (collision.CompareTag("Start"))
+        {
+            Debug.Log("Play Game");
 
-        if (collision.gameObject.CompareTag("MoveRight"))
-        {
-            Debug.Log("RIGHT");
+            
+            //SceneManager.LoadScene("SampleScene");
+    
         }
-        if (collision.gameObject.CompareTag("MoveLeft"))
-        {
-            Debug.Log("LEFT");
-        }
-        if (collision.gameObject.CompareTag("MoveBack"))
-        {
-            Debug.Log("BACK");
-        }
-        if (collision.gameObject.CompareTag("MoveForward"))
-        {
-            Debug.Log("FORAWRD");
-        }
-        /*
-        if (!collision.gameObject.CompareTag("Bubble"))
-            return;
 
-        Bubble bubble = collision.gameObject.GetComponent<Bubble>();
-        StartCoroutine(bubble.Pop());*/
+        Debug.Log("Play Game");
     }
 }

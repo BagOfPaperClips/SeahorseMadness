@@ -8,6 +8,10 @@ TagManager:
   - Food
   - StruggleArea
   - AudioZone1
+  - Bubble
+  - Start
+  - Credits
+  - BACK
   layers:
   - Default
   - TransparentFX
