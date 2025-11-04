@@ -12,6 +12,7 @@ TagManager:
   - Start
   - Credits
   - BACK
+  - quit
   layers:
   - Default
   - TransparentFX

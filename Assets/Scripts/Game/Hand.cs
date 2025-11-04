@@ -13,17 +13,42 @@ public class Hand : MonoBehaviour
         mHandMesh.position = Vector3.Lerp(mHandMesh.position, transform.position, Time.deltaTime * 15.0f);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.CompareTag("Start"))
         {
             Debug.Log("Play Game");
 
             
-            //SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("SampleScene");
     
         }
 
-        Debug.Log("Play Game");
+        if (collision.CompareTag("Credits"))
+        {
+            Debug.Log("CreditPage");
+
+
+            SceneManager.LoadScene("Credits");
+
+        }
+
+        if (collision.CompareTag("quit"))
+        {
+            Debug.Log("QuitePage");
+
+
+            Application.Quit();
+        }
+
+
+        if (collision.CompareTag("BACK"))
+        {
+            Debug.Log("TitlePage");
+
+
+            SceneManager.LoadScene("TitleScreen");
+        }
+
     }
 }
