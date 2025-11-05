@@ -63,7 +63,7 @@ public class PlayerEating : MonoBehaviour
         }
         else
         {
-            intensity = 1 - (0.35f * _elapsed);
+            intensity -= (0.02f * _elapsed);
         }
         //max vignette sizes
         if (intensity > 1f) intensity = 1f;
@@ -107,6 +107,7 @@ public class PlayerEating : MonoBehaviour
         if (collision.CompareTag("Food"))
         {
             Debug.Log("Food collected: ");
+            _elapsed = 0f;
             //intensity = 0f;
             //vignette.intensity.Override(0f);
             eatSound.Play();
