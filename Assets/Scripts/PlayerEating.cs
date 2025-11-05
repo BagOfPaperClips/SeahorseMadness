@@ -22,7 +22,7 @@ public class PlayerEating : MonoBehaviour
     //endscreen countdown (hidden to players)
     private bool _isEating = false;
     private float _elapsed = 0f;
-    public float timeRemaining = 5;
+    public float timeRemaining = 10f;
     public bool timerIsRunning = false;
 
     // Start is called before the first frame update
@@ -79,12 +79,22 @@ public class PlayerEating : MonoBehaviour
 
         if (intensity == 1f) {
             timerIsRunning = true;
-            Debug.Log("Timer is running");
+            //Debug.Log("Timer is running");
         }
         if (timerIsRunning)
         {
             if (timeRemaining > 0)
             {
+                //Debug.Log(timeRemaining);
+                //switch to red at specific times
+                if (timeRemaining > 5f && timeRemaining < 6f || timeRemaining > 3f && timeRemaining < 4f || timeRemaining > 1f && timeRemaining < 2f)
+                {
+                    vignette.color.Override(new Color(250, 0, 0));
+                }
+                else
+                {
+                    vignette.color.Override(new Color(0, 0, 0));
+                }
                 timeRemaining -= Time.deltaTime;
             }
             else
@@ -112,7 +122,7 @@ public class PlayerEating : MonoBehaviour
             //vignette.intensity.Override(0f);
             eatSound.Play();
             timerIsRunning = false;
-            timeRemaining = 5;
+            timeRemaining = 10f;
             _isEating = true;
         }
     }

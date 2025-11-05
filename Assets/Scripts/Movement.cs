@@ -19,6 +19,7 @@ public class Movement : MonoBehaviour
     //random environment sounds
     public AudioSource ambiance1;
     public AudioSource ambiance2;
+    private bool _ambiance1;
     private bool _ambiance2;
 
     //creaks
@@ -47,8 +48,8 @@ public class Movement : MonoBehaviour
         //sound
         StartCoroutine(PlaySound());
         ambiance1.Play();
-        tbplaymin = 8;
-        tbplaymax = 15;
+        tbplaymin = 5;
+        tbplaymax = 8;
     }
 
     // Update is called once per frame
@@ -118,13 +119,24 @@ public class Movement : MonoBehaviour
         }
         if (collision.CompareTag("AudioZone1"))
         {
+            if (_ambiance1 == false)
+            {
+                _ambiance2 = true;
+                Debug.Log("Ambiance area 2");
+                tbplaymin = 10;
+                tbplaymax = 15;
+                StartCoroutine(PlaySound());
+            }
+        }
+        if (collision.CompareTag("AudioZone2"))
+        {
             if (_ambiance2 == false)
             {
                 ambiance1.Pause();
                 ambiance2.Play();
                 _ambiance2= true;
-                Debug.Log("Ambiance area 2");
-                tbplaymin = 10;
+                Debug.Log("Ambiance area 3");
+                tbplaymin = 15;
                 tbplaymax = 30;
                 StartCoroutine(PlaySound());
             }
