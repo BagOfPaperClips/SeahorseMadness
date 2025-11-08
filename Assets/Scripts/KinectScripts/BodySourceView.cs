@@ -98,6 +98,7 @@ public class BodySourceView : MonoBehaviour
                 UpdateBodyObject(body, mBodies[body.TrackingId]);
 
                 isKinect = true;
+                break;
             }
         }
         #endregion
@@ -169,7 +170,7 @@ public class BodySourceView : MonoBehaviour
         //-----------------------------------\\
         //REGULAR CONTROLS
 
-        if (tempx <= -2)
+        if (tempx <= -1)
         {
             Debug.Log("LEFT");
             xDir = -1;
@@ -183,7 +184,7 @@ public class BodySourceView : MonoBehaviour
                 _moving = true;
             }
         }
-        else if(tempx >= 2)
+        else if(tempx >= 1)
         {
             Debug.Log("RIGHT");
             xDir = 1;
@@ -196,7 +197,7 @@ public class BodySourceView : MonoBehaviour
                 _moving = true;
             }
         }
-        else if(tempz <= 13)
+        else if(tempz <= 14)
         {
             Debug.Log("FORWARD");
             zDir = 1;
@@ -209,7 +210,7 @@ public class BodySourceView : MonoBehaviour
                 _moving = true;
             }
         }
-        else if(tempz >= 18)
+        else if(tempz >= 16)
         {
             Debug.Log("BACKWARD");
             zDir = -1;
@@ -290,7 +291,7 @@ public class BodySourceView : MonoBehaviour
 
         Debug.Log("STRUGGLE");
 
-        if (tempx <= -2)
+        if (tempx <= -1)
         {
             Debug.Log("LEFT");
             if (pastdir != 1)
@@ -301,7 +302,7 @@ public class BodySourceView : MonoBehaviour
             pastdir = 1;
 
         }
-        else if (tempx >= 2)
+        else if (tempx >= 1)
         {
             Debug.Log("RIGHT");
             if (pastdir != 2)

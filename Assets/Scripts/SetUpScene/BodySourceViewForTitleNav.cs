@@ -7,6 +7,8 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System.Diagnostics.Tracing;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+using static Unity.Burst.Intrinsics.Arm;
+using UnityEngine.Rendering.PostProcessing;
 
 public class BodySourceViewForTitleNav : MonoBehaviour
 {
@@ -15,6 +17,8 @@ public class BodySourceViewForTitleNav : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI DirectionPointing;
     [SerializeField] TextMeshProUGUI Instructions;
+    [SerializeField] TextMeshProUGUI Calibration;
+
     public TextMeshProUGUI Timer;
     [SerializeField] float remainingTime = 5;
     [SerializeField] int seconds;
@@ -25,6 +29,9 @@ public class BodySourceViewForTitleNav : MonoBehaviour
     [SerializeField] int counterR = 0;
     [SerializeField] int counterF = 0;
     [SerializeField] int counterB = 0;
+
+    int counter = 0;
+    int totalCount = 0;
     int prev = 0;
 
     private Dictionary<ulong, GameObject> mBodies = new Dictionary<ulong, GameObject>();
@@ -85,6 +92,7 @@ public class BodySourceViewForTitleNav : MonoBehaviour
 
                 // Update positions
                 UpdateBodyObject(body, mBodies[body.TrackingId]);
+                break;
             }
         }
         #endregion
@@ -143,35 +151,38 @@ public class BodySourceViewForTitleNav : MonoBehaviour
 
     public void setupPos(Joint joint)
     {
+        Instructions.text = "Stay perfect for 5 seconds \nMovement is tracked by head";
+        Calibration.text = "";
+
         //----- POSITIONS  ------//
         float tempx = joint.Position.X * 10;
         float tempy = joint.Position.Y * 10;
         float tempz = joint.Position.Z * 10;
         
 
-        if (tempx <= -2)
+        if (tempx <= -1)
         {
-            DirectionPointing.text = "Too left";
+            DirectionPointing.text = "Step Right";
             remainingTime = 5;
         }
-        else if (tempx >= 2)
+        else if (tempx >= 1)
         {
-            DirectionPointing.text = "Too Right";
+            DirectionPointing.text = "Step Left";
             remainingTime = 5;
         }
-        else if (tempz <= 13)
+        else if (tempz <= 14)
         {
-            DirectionPointing.text = "Too forward";
+            DirectionPointing.text = "Step Backward";
             remainingTime = 5;
         }
-        else if (tempz >= 18)
+        else if (tempz >= 16)
         {
-            DirectionPointing.text = "Too backward";
+            DirectionPointing.text = "Step Forward";
             remainingTime = 5;
         }
         else
         {
-            DirectionPointing.text = "You found center";
+            DirectionPointing.text = "Perfect";
             if (remainingTime > 0)
             {
                 remainingTime -= Time.deltaTime;
@@ -192,53 +203,95 @@ public class BodySourceViewForTitleNav : MonoBehaviour
     }
     public void MovementCal(Joint joint)
     {
-        Instructions.text = "Try to move around \n every direction 2 different times to continue";
+        if (prev == 0)
+        {
+            Instructions.text = "Test your Leaning \n Lean forward";
+        }
 
         //----- POSITIONS  ------//
         float tempx = joint.Position.X * 10;
         float tempy = joint.Position.Y * 10;
         float tempz = joint.Position.Z * 10;
 
-
-        if (tempx <= -2)
+        //------ LEFT -------//
+        if (tempx <= -1)
         {
             if (prev != 1)
             {
-                counterL = counterL + 1;
-                DirectionPointing.text = "Left " + counterL;
+                //counterL = 1;
+                
+                
+                if(counter == 3)
+                {
+                    Instructions.text = "Perfect! Do it again! \nLean Forward";
+                    //counter = counter + 1;
+                    counter = 0;
+                    totalCount = totalCount + 1;
+                    
+                }
+                
                 prev = 1;
             }
-            
+            DirectionPointing.text = "Left ";
+
         }
-        else if (tempx >= 2)
+        //------ RIGHT -------//
+        else if (tempx >= 1)
         {
             if (prev != -1)
             {
                 counterR = counterR + 1;
-                DirectionPointing.text = "Right " + counterR;
+                
+                
+                if (counter == 2)
+                {
+                    Instructions.text = "Lean Left";
+                    counter = counter + 1;
+                }
+
                 prev = -1;
             }
-            
+            DirectionPointing.text = "Right";
+
         }
-        else if (tempz <= 13)
+        //------ FORWARD  -------//
+        else if (tempz <= 14)
         {
             if (prev != 2)
             {
                 counterF = counterF + 1;
-                DirectionPointing.text = "Forward " + counterF;
+                
+
+                if (counter == 0)
+                {
+                    Instructions.text = "Lean Backward";
+                    counter = counter + 1;
+                }
+
                 prev = 2;
             }
-            
+            DirectionPointing.text = "Forward ";
+
         }
-        else if (tempz >= 18)
+        //------ BACKWARD -------//
+        else if (tempz >= 16)
         {
             if (prev != -2)
             {
                 counterB = counterB + 1;
-                DirectionPointing.text = "Backward " + counterB;
+                
+
+                if (counter == 1)
+                {
+                    counter = counter + 1;
+                    Instructions.text = "Lean Right";
+                    
+                }
+                
                 prev = -2;
             }
-            
+            DirectionPointing.text = "Backward ";
+
         }
         else
         {
@@ -247,8 +300,9 @@ public class BodySourceViewForTitleNav : MonoBehaviour
 
 
         //----- GET OUT ------//
-        if (counterL>=2 && counterR >= 2 && counterF >= 2 && counterB >= 2)
+        if (totalCount == 2)
         {
+            Instructions.text = "";
             SceneManager.LoadScene("SampleScene");
         }
 
