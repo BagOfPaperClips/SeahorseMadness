@@ -15,40 +15,6 @@ public class Hand : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.CompareTag("Start"))
-        {
-            Debug.Log("Play Game");
-
-            
-            SceneManager.LoadScene("SampleScene");
-    
-        }
-
-        if (collision.CompareTag("Credits"))
-        {
-            Debug.Log("CreditPage");
-
-
-            SceneManager.LoadScene("Credits");
-
-        }
-
-        if (collision.CompareTag("quit"))
-        {
-            Debug.Log("QuitePage");
-
-
-            Application.Quit();
-        }
-
-
-        if (collision.CompareTag("BACK"))
-        {
-            Debug.Log("TitlePage");
-
-
-            SceneManager.LoadScene("TitleScreen");
-        }
-
+       
     }
 }
