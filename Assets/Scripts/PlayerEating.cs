@@ -22,7 +22,8 @@ public class PlayerEating : MonoBehaviour
     //endscreen countdown (hidden to players)
     private bool _isEating = false;
     private float _elapsed = 0f;
-    public float timeRemaining = 10f;
+    //how long they have at full vignette
+    private float timeRemaining = 10f;
     public bool timerIsRunning = false;
 
     // Start is called before the first frame update
@@ -59,7 +60,7 @@ public class PlayerEating : MonoBehaviour
         _elapsed += Time.deltaTime;
         if (_isEating == false)
         {
-            intensity = 0.05f * _elapsed;
+            intensity = 0.03f * _elapsed;
         }
         else
         {

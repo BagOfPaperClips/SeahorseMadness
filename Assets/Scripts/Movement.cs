@@ -96,7 +96,7 @@ public class Movement : MonoBehaviour
         {
             if (_struggling == false)
             {
-                StartCoroutine(PlayStruggle());
+                //StartCoroutine(PlayStruggle());
                 _struggling = true;
             }
         }
@@ -110,14 +110,12 @@ public class Movement : MonoBehaviour
             Debug.Log("INSTRUGGLE");
             Debug.Log(BSV);
             BSV.struggleAmount = true;
-            StartCoroutine(PlayStruggle());
+            //StartCoroutine(PlayStruggle());
         }
         else
         {
-            if (BSV.struggleAmount == true) struggleEnd.Play();
+            //if (BSV.struggleAmount == true) struggleEnd.Play();
             BSV.struggleAmount = false;
-
-
         }
         if (collision.CompareTag("AudioZone1"))
         {
