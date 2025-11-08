@@ -34244,7 +34244,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 947612949}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3117281, y: 0.00000008181972, z: -0.000000043674326, w: 0.9501714}
+  m_LocalRotation: {x: 0.31172812, y: 0, z: 0, w: 0.95017135}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -36167,6 +36167,7 @@ GameObject:
   - component: {fileID: 1035896882}
   - component: {fileID: 1035896885}
   - component: {fileID: 1035896886}
+  - component: {fileID: 1035896887}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -36363,6 +36364,19 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1035896887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035896876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6d98a02350ed4468629a36399efac0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualCamera: {fileID: 342483210}
 --- !u!1001 &1045937757
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45336,7 +45350,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1584056846}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2943934, y: -0.000000012779155, z: 0.00000001481686, w: 0.95568436}
+  m_LocalRotation: {x: 0.29439345, y: 0, z: 0, w: 0.95568436}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -50811,7 +50825,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1975723015}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.27700746, y: 0.00000008601204, z: -0.000000012960003, w: 0.9608678}
+  m_LocalRotation: {x: 0.2770075, y: 0, z: 0, w: 0.9608678}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

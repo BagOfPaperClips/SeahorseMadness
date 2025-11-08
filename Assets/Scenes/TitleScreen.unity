@@ -1116,6 +1116,7 @@ GameObject:
   - component: {fileID: 1228656541}
   - component: {fileID: 1228656540}
   - component: {fileID: 1228656539}
+  - component: {fileID: 1228656543}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1211,6 +1212,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1228656543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228656538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a6dcf02f2b379c4f83ecba37a5662d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mBodySourceManager: {fileID: 1469188775}
+  mJointObject: {fileID: 1581252307236616, guid: 184f2a9019d03ed47bc3d16a742f1acc, type: 3}
+  playButton: {fileID: 1965407490}
+  credits: {fileID: 1481757560}
+  exit: {fileID: 1399929131}
 --- !u!1 &1399929131
 GameObject:
   m_ObjectHideFlags: 0
@@ -1946,7 +1964,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1965407495}
         m_TargetAssemblyTypeName: SceneTransitioner, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: Tutorial
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2289,6 +2307,10 @@ PrefabInstance:
     - target: {fileID: 653757039463356777, guid: 72b426b4f72bd0a4f8f68b22be93909d, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231667952152145008, guid: 72b426b4f72bd0a4f8f68b22be93909d, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2603204937338054848, guid: 72b426b4f72bd0a4f8f68b22be93909d, type: 3}
       propertyPath: m_Pivot.x

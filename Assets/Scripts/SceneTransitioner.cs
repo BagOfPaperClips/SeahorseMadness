@@ -30,6 +30,11 @@ public class SceneTransitioner : MonoBehaviour
         SceneManager.LoadScene("Credits");
     }
 
+    public void Tutorial()
+    {
+        SceneManager.LoadScene("TutorialScene");
+    }
+
     public void Quit()
     {
         Application.Quit();
