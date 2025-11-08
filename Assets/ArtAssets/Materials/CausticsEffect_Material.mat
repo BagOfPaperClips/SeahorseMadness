@@ -41,10 +41,11 @@ Material:
     - _DecalMeshBiasType: 0
     - _DecalMeshDepthBias: 0
     - _DecalMeshViewBias: 0
-    - _Density: 3
+    - _Density: 2.5
     - _DrawOrder: 0
-    - _Offset: 2
+    - _Offset: 6
     - _Power: 4
+    - _Speed: 1
     m_Colors:
     - _Color: {r: 0.9901646, g: 1, b: 0.7688679, a: 0}
   m_BuildTextureStacks: []
