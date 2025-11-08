@@ -12,6 +12,7 @@ public class Movement : MonoBehaviour
     float turnSmoothVelocity;
     public BodySourceView BSV;
 
+    #region SoundInfo
     //movement sounds
     public AudioSource moveSound;
     private bool _moving;
@@ -39,6 +40,7 @@ public class Movement : MonoBehaviour
     public AudioSource[] struggles;
     private bool _struggling=false;
     public AudioSource struggleEnd;
+    #endregion
 
     void Start()
     {

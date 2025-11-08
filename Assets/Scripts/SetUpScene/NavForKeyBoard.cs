@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class NavForKeyBoard : MonoBehaviour
 {
-    BodySourceViewForTitleNav tn = new BodySourceViewForTitleNav();
 
     // Update is called once per frame
     void Update()
