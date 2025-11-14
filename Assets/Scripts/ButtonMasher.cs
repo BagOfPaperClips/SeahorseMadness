@@ -17,9 +17,8 @@ public class ButtonMasher : MonoBehaviour
     float elapsedTime;
 
     //struggle sound
-    //public AudioSource struggleButton;
+    public AudioSource struggleButton;
     private int clipIndex;
-    public AudioSource[] struggles;
 
 
     // Start is called before the first frame update
@@ -43,12 +42,7 @@ public class ButtonMasher : MonoBehaviour
                 //transform.position=
 
                 //sound plays each key press
-                clipIndex = Random.Range(0, struggles.Length);
-                if (!struggles[clipIndex].isPlaying)
-                {
-                    struggles[clipIndex].Play();
-                }
-                //struggleButton.Play();
+                struggleButton.Play();
             }
             /*
             if (started)

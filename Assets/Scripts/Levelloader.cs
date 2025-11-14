@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class NavForKeyBoard : MonoBehaviour
+public class Levelloader : MonoBehaviour
 {
     public Animator transition;
-    public float transitionTime = 3f;
+
+    public float transitionTime = 5f;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            StartCoroutine(LoadLevel("SampleScene"));
-        }
+
     }
 
-    IEnumerator LoadLevel(string levelIndex)
+    public void LoadNextLevel()
+    {
+        StartCoroutine(LoadLevel(1));
+    }
+
+    IEnumerator LoadLevel(int levelIndex)
     {
         //Play animation
         transition.SetTrigger("Start");

@@ -26,14 +26,17 @@ public class PlayerEating : MonoBehaviour
     private float timeRemaining = 10f;
     public bool timerIsRunning = false;
 
-    // Start is called before the first frame update
+    //scripts
+    public SceneTransitioner sceneTransitioner;
+    public Movement movement;
+
     void Awake()
     {
         QualitySettings.vSyncCount = 0;  // VSync must be disabled
         Application.targetFrameRate = 60;
     }
 
-
+    // Start is called before the first frame update
     void Start()
     {
         //volume = PPGO.GetComponent<Volume>();
@@ -42,6 +45,8 @@ public class PlayerEating : MonoBehaviour
 
         volumeProfile.TryGet<Vignette>(out vignette);
         volumeProfile.TryGet<Bloom>(out bloom);
+        sceneTransitioner = GameObject.Find("LevelLoader").GetComponent<SceneTransitioner>();
+        movement = GetComponent<Movement>();
 
         if (!vignette)
         {
@@ -51,6 +56,11 @@ public class PlayerEating : MonoBehaviour
         if (!bloom)
         {
             print("error, bloom empty");
+        }
+
+        if (!sceneTransitioner)
+        {
+            print("error, sceneTransitioner empty");
         }
     }
 
@@ -79,6 +89,7 @@ public class PlayerEating : MonoBehaviour
         bloom.intensity.Override(intensity*20);
 
         if (intensity == 1f) {
+            if (timerIsRunning == false) StartCoroutine(movement.PlayStruggle());
             timerIsRunning = true;
             //Debug.Log("Timer is running");
         }
@@ -86,6 +97,11 @@ public class PlayerEating : MonoBehaviour
         {
             if (timeRemaining > 0)
             {
+                if (movement._struggling == false)
+                {
+                    movement._struggling = true;
+                    StartCoroutine(movement.PlayStruggle());
+                }
                 //Debug.Log(timeRemaining);
                 //switch to red at specific times
                 if (timeRemaining > 5f && timeRemaining < 6f || timeRemaining > 3f && timeRemaining < 4f || timeRemaining > 1f && timeRemaining < 2f)
@@ -103,7 +119,7 @@ public class PlayerEating : MonoBehaviour
                 Debug.Log("Time has run out! You died of starvation");
                 timeRemaining = 0;
                 timerIsRunning = false;
-                SceneManager.LoadScene("DeathScreen");
+                sceneTransitioner.Death();
             }
         }
         //if (Input.GetMouseButtonDown(0))
@@ -125,6 +141,8 @@ public class PlayerEating : MonoBehaviour
             timerIsRunning = false;
             timeRemaining = 10f;
             _isEating = true;
+            movement._struggling = false;
+            vignette.color.Override(new Color(0, 0, 0));
         }
     }
 }

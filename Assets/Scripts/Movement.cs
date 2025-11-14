@@ -38,7 +38,7 @@ public class Movement : MonoBehaviour
 
     //struggle sounds
     public AudioSource[] struggles;
-    private bool _struggling=false;
+    public bool _struggling=false;
     public AudioSource struggleEnd;
     #endregion
 
@@ -96,7 +96,7 @@ public class Movement : MonoBehaviour
         {
             if (_struggling == false)
             {
-                //StartCoroutine(PlayStruggle());
+                StartCoroutine(PlayStruggle());
                 _struggling = true;
             }
         }
@@ -110,7 +110,7 @@ public class Movement : MonoBehaviour
             Debug.Log("INSTRUGGLE");
             Debug.Log(BSV);
             BSV.struggleAmount = true;
-            //StartCoroutine(PlayStruggle());
+            StartCoroutine(PlayStruggle());
         }
         else
         {
@@ -162,13 +162,13 @@ public class Movement : MonoBehaviour
         StartCoroutine(PlaySound());
     }
 
-    IEnumerator PlayStruggle()
+    public IEnumerator PlayStruggle()
     {
-        yield return new WaitForSeconds(Random.Range(1, 4));
+        yield return new WaitForSeconds(Random.Range(1, 3));
         clipIndex = Random.Range(0, struggles.Length);
         Debug.Log("Struggle " + clipIndex);
         struggles[clipIndex].Play();
-        yield return new WaitForSeconds(Random.Range(1, 4));
+        yield return new WaitForSeconds(Random.Range(1, 3));
         _struggling = false;
     }
 }

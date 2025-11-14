@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransitioner : MonoBehaviour
 {
+    public Animator transition;
+    public float transitionTime = 3f;
+
     public void TitleScreen()
     {
         SceneManager.LoadScene("TitleScreen");
@@ -12,12 +15,12 @@ public class SceneTransitioner : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        StartCoroutine(LoadLevel("SampleScene"));
     }
 
     public void Death()
     {
-        SceneManager.LoadScene("DeathScreen");
+        StartCoroutine(LoadLevel("DeathScreen"));
     }
 
     public void FinalDeath()
@@ -32,11 +35,23 @@ public class SceneTransitioner : MonoBehaviour
 
     public void Tutorial()
     {
-        SceneManager.LoadScene("TutorialScene");
+        StartCoroutine(LoadLevel("TutorialScene"));
     }
 
     public void Quit()
     {
         Application.Quit();
+    }
+
+    IEnumerator LoadLevel(string levelIndex)
+    {
+        //Play animation
+        transition.SetTrigger("Start");
+
+        //wait
+        yield return new WaitForSeconds(transitionTime);
+
+        //loadscene
+        SceneManager.LoadScene(levelIndex);
     }
 }
