@@ -40437,7 +40437,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 947612949}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.31172648, y: 0.00000004143797, z: -0.000000013021929, w: 0.9501719}
+  m_LocalRotation: {x: 0.31172812, y: 0, z: 0, w: 0.95017135}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -55039,7 +55039,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1584056846}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.29439178, y: 0.000000081861124, z: -0.000000018916603, w: 0.95568484}
+  m_LocalRotation: {x: 0.29439345, y: 0, z: 0, w: 0.95568436}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -62257,7 +62257,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1975723015}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2770058, y: 0.00000003028043, z: -0.0000000030121738, w: 0.96086824}
+  m_LocalRotation: {x: 0.2770075, y: 0, z: 0, w: 0.9608678}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -65663,6 +65663,10 @@ PrefabInstance:
       propertyPath: m_Volume
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2258824816036147232, guid: ef63ac0ea5b173144bd9f3219917f121, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4ad381e0f2e15324f87f72d663e8ad0f, type: 3}
     - target: {fileID: 5329883387336543902, guid: ef63ac0ea5b173144bd9f3219917f121, type: 3}
       propertyPath: m_Name
       value: Audio Controller
@@ -65694,7 +65698,7 @@ PrefabInstance:
     - target: {fileID: 7643161051643741219, guid: ef63ac0ea5b173144bd9f3219917f121, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 97178eae9d473404386dbb4a11b381ce, type: 3}
+      objectReference: {fileID: 8300000, guid: 14f944ec68af366418e4e7f70cf066c1, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
