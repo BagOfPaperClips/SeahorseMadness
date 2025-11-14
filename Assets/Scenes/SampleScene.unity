@@ -43205,7 +43205,7 @@ MonoBehaviour:
   cam: {fileID: 201288507}
   speed: 6
   turnSmoothTime: 0.1
-  BSV: {fileID: 0}
+  BSV: {fileID: 1035896879}
   moveSound: {fileID: 1269701956}
   ambiance1: {fileID: 1090457582}
   ambiance2: {fileID: 271468802}

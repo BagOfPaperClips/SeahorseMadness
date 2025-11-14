@@ -5,10 +5,10 @@ using Windows.Kinect;
 using Joint = Windows.Kinect.Joint;
 using TMPro;
 using UnityEngine.SceneManagement;
-using System.Diagnostics.Tracing;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
-using static Unity.Burst.Intrinsics.Arm;
+//using System.Diagnostics.Tracing;
+//using static Unity.Burst.Intrinsics.Arm;
 using UnityEngine.Rendering.PostProcessing;
+using System.Linq.Expressions;
 
 public class BodySourceViewForTitleNav : MonoBehaviour
 {
@@ -30,9 +30,16 @@ public class BodySourceViewForTitleNav : MonoBehaviour
     [SerializeField] int counterF = 0;
     [SerializeField] int counterB = 0;
 
+    private float pastdir = 0;
+
     int counter = 0;
     int totalCount = 0;
     int prev = 0;
+    int struggleCounter = 0;
+    //bool calTime = false;
+    bool movementTime = true;
+
+    bool instruction = false; 
 
     private Dictionary<ulong, GameObject> mBodies = new Dictionary<ulong, GameObject>();
     private List<JointType> _joints = new List<JointType>
@@ -41,7 +48,7 @@ public class BodySourceViewForTitleNav : MonoBehaviour
         //JointType.HandLeft,
         //JointType.HandRight,
         //JointType.SpineBase,
-        JointType.Head,
+        JointType.Head
     };
 
     void Update()
@@ -132,10 +139,15 @@ public class BodySourceViewForTitleNav : MonoBehaviour
             {
                 MovementCal(sourceJoint);
             }
-            else
+            else if(movementTime)
             {
                 setupPos(sourceJoint);
             }
+            else //if (calTime)
+            {
+                StruggleMech(sourceJoint);
+            }
+
 
             // Get joint, set new position
             Transform jointObject = bodyObject.transform.Find(_joint.ToString());
@@ -198,6 +210,8 @@ public class BodySourceViewForTitleNav : MonoBehaviour
         {
             Timer.text = "";
             posDone = true;
+            prev = 0;
+            movementTime = false;
         }
         
     }
@@ -302,9 +316,60 @@ public class BodySourceViewForTitleNav : MonoBehaviour
         //----- GET OUT ------//
         if (totalCount == 2)
         {
-            Instructions.text = "";
-            SceneManager.LoadScene("SampleScene");
+            //Instructions.text = "";
+            //SceneManager.LoadScene("SampleScene");
+            //calTime = true;
+            prev = 0;
+            posDone = false;
+
         }
 
+    }
+    public void StruggleMech(Joint joint) 
+    {
+        Debug.Log("InsideStruggle");
+        if (instruction ==false)
+        {
+            Instructions.text = "Struggle Time : Move Right";
+        }
+
+        //----- POSITIONS  ------//
+        float tempx = joint.Position.X * 10;
+        float tempy = joint.Position.Y * 10;
+        float tempz = joint.Position.Z * 10;
+
+        if (tempx <= -1)
+        {
+            Debug.Log("LEFT");
+            if (pastdir != 1)
+            {
+                
+                Instructions.text = "Move Right";
+                struggleCounter = struggleCounter + 1;
+            }
+            pastdir = 1;
+            DirectionPointing.text = "Left ";
+
+        }
+        else if (tempx >= 1)
+        {
+            Debug.Log("RIGHT");
+            if (pastdir != 2)
+            {
+                Instructions.text = "Move Left";
+                struggleCounter = struggleCounter + 1;
+            }
+            pastdir = 2;
+            DirectionPointing.text = "Right";
+        }
+        else
+        {
+            instruction = true;
+        }
+
+        if (struggleCounter == 6)
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
     }
 }
