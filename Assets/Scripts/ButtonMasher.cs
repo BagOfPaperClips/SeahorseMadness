@@ -38,7 +38,7 @@ public class ButtonMasher : MonoBehaviour
                 //started = true;
                 Debug.Log("Space pressed");
                 //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, xDir * 90, ref turnSmoothVelocity, SmoothTime);
-                transform.position += new Vector3(0, 0, BSV.movar);
+                transform.position += new Vector3(0, 0, BSV.movevar);
                 //transform.position=
 
                 //sound plays each key press
