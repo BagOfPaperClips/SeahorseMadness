@@ -25,7 +25,7 @@ public class SceneTransitioner : MonoBehaviour
 
     public void FinalDeath()
     {
-        SceneManager.LoadScene("FinalDeathScreen");
+        StartCoroutine(LoadLevel("FinalDeath"));
     }
 
     public void Credits()

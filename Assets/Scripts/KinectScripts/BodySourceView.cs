@@ -28,7 +28,8 @@ public class BodySourceView : MonoBehaviour
     public UnityEngine.AudioSource moveSound;
     private bool _moving;
 
-    //struggle sounds
+    //struggle & sounds
+    public float movevar = 3f;
     public UnityEngine.AudioSource struggleButton;
 
     public Transform cam;
@@ -286,7 +287,6 @@ public class BodySourceView : MonoBehaviour
         float tempy = joint.Position.Y * 10;
         float tempz = joint.Position.Z * 10;
 
-        float movevar = 3f;
         float strugglespeed = 100f;
 
         Debug.Log("STRUGGLE");

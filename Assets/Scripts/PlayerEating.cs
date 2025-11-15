@@ -25,6 +25,8 @@ public class PlayerEating : MonoBehaviour
     //how long they have at full vignette
     private float timeRemaining = 10f;
     public bool timerIsRunning = false;
+    //final death
+    private bool isDead=false;
 
     //scripts
     public SceneTransitioner sceneTransitioner;
@@ -71,6 +73,10 @@ public class PlayerEating : MonoBehaviour
         if (_isEating == false)
         {
             intensity = 0.03f * _elapsed;
+        }
+        else if (isDead)
+        {
+            intensity = 0.1f * _elapsed;
         }
         else
         {
@@ -119,7 +125,14 @@ public class PlayerEating : MonoBehaviour
                 Debug.Log("Time has run out! You died of starvation");
                 timeRemaining = 0;
                 timerIsRunning = false;
-                sceneTransitioner.Death();
+                if (isDead)
+                {
+                    sceneTransitioner.FinalDeath();
+                }
+                else
+                {
+                    sceneTransitioner.Death();
+                }
             }
         }
         //if (Input.GetMouseButtonDown(0))
@@ -143,6 +156,12 @@ public class PlayerEating : MonoBehaviour
             _isEating = true;
             movement._struggling = false;
             vignette.color.Override(new Color(0, 0, 0));
+        }
+        if (collision.CompareTag("FinalDeath"))
+        {
+            Debug.Log("Final Death");
+            timeRemaining = 0f;
+            isDead =true;
         }
     }
 }

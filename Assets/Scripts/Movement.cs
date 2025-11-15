@@ -68,7 +68,6 @@ public class Movement : MonoBehaviour
                 zDirection = BSV.zDir;
             }
 
-
             Vector3 moveDirection = new Vector3(xDirection, 0.0f, zDirection).normalized;
 
             if (moveDirection.magnitude >= 0.1f)
@@ -134,12 +133,20 @@ public class Movement : MonoBehaviour
             {
                 ambiance1.Pause();
                 ambiance2.Play();
-                _ambiance2= true;
+                _ambiance2 = true;
                 Debug.Log("Ambiance area 3");
                 tbplaymin = 15;
                 tbplaymax = 30;
                 StartCoroutine(PlaySound());
             }
+        }
+        if (collision.CompareTag("FinalDeath"))
+        {
+            Debug.Log("DEAD");
+            Debug.Log(BSV);
+            BSV.struggleAmount = true;
+            StartCoroutine(PlayStruggle());
+            BSV.movevar = 0.01f;
         }
     }
 
