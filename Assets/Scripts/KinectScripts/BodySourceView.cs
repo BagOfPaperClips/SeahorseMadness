@@ -31,6 +31,8 @@ public class BodySourceView : MonoBehaviour
     //struggle & sounds
     public float movevar = 3f;
     public UnityEngine.AudioSource struggleButton;
+    //struggle coroutine from buttonmasher use
+    public ButtonMasher buttonMasher;
 
     public Transform cam;
 
@@ -49,6 +51,11 @@ public class BodySourceView : MonoBehaviour
         JointType.Head,
     };
 
+    void Start()
+    {
+        buttonMasher = GetComponent<ButtonMasher>();
+    }
+    
     void Update()
     {
         #region Get Kinect data
@@ -294,9 +301,9 @@ public class BodySourceView : MonoBehaviour
         if (tempx <= -1)
         {
             Debug.Log("LEFT");
-            if (pastdir != 1)
+            if (pastdir != 1 && buttonMasher._struggling == false)
             {
-                struggleButton.Play();
+                StartCoroutine(buttonMasher.PlayStruggleButton());
                 transform.position += new Vector3(0, 0, movevar);
             }
             pastdir = 1;
@@ -305,9 +312,9 @@ public class BodySourceView : MonoBehaviour
         else if (tempx >= 1)
         {
             Debug.Log("RIGHT");
-            if (pastdir != 2)
+            if (pastdir != 2 && buttonMasher._struggling==false)
             {
-                struggleButton.Play();
+                StartCoroutine(buttonMasher.PlayStruggleButton());
                 transform.position += new Vector3(0, 0, movevar);
             }
             pastdir = 2;
@@ -338,7 +345,5 @@ public class BodySourceView : MonoBehaviour
         */
 
         Debug.Log(pastdir);
-        
-
     }
 }

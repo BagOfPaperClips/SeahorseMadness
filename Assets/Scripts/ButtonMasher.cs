@@ -12,14 +12,15 @@ public class ButtonMasher : MonoBehaviour
     bool started;
     public BodySourceView BSV;
 
-    bool countdownActive = false;
+    //bool countdownActive = false;
     float countdownTimer = 4;
     float elapsedTime;
 
     //struggle sound
-    public AudioSource struggleButton;
+    public AudioSource[] struggleButton;
     private int clipIndex;
-
+    private int lastClipIndex;
+    public bool _struggling = false;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +43,11 @@ public class ButtonMasher : MonoBehaviour
                 //transform.position=
 
                 //sound plays each key press
-                struggleButton.Play();
+                if (_struggling==false)
+                {
+                    Debug.Log("Played sound");
+                    StartCoroutine(PlayStruggleButton());
+                }
             }
             /*
             if (started)
@@ -87,5 +92,15 @@ public class ButtonMasher : MonoBehaviour
             */
         }
 
+    }
+
+    public IEnumerator PlayStruggleButton()
+    {
+        _struggling = true;
+        clipIndex = Random.Range(0, struggleButton.Length);
+        Debug.Log("Struggle button " + clipIndex);
+        struggleButton[clipIndex].Play();
+        yield return new WaitForSeconds(Random.Range(1, 2));
+        _struggling = false;
     }
 }

@@ -27,8 +27,8 @@ public class Movement : MonoBehaviour
     public AudioSource[] sources;
     private int clipIndex;
     private int lastClipIndex;
-    private AudioSource audio;
-    private bool audioPlaying = false;
+    //private AudioSource audio;
+    //private bool audioPlaying = false;
 
     private float tbplaymin;
     private float tbplaymax;
