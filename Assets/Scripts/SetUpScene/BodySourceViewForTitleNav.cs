@@ -369,7 +369,16 @@ public class BodySourceViewForTitleNav : MonoBehaviour
 
         if (struggleCounter == 6)
         {
-            SceneManager.LoadScene("SampleScene");
+            Instructions.text = "Move To Center";
+            if(!(tempz >= 16) && !(tempz <= 14) && !(tempx >= 1) && !(tempx <= -1))
+            {
+                DirectionPointing.text = "Center";
+                struggleCounter = struggleCounter + 1;
+                if (struggleCounter == 7)
+                {
+                    SceneManager.LoadScene("SampleScene");
+                }
+            }
         }
     }
 }
