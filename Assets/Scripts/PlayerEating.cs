@@ -27,6 +27,7 @@ public class PlayerEating : MonoBehaviour
     public bool timerIsRunning = false;
     //final death
     private bool isDead=false;
+    public bool starved = false;
 
     //scripts
     public SceneTransitioner sceneTransitioner;
@@ -76,7 +77,7 @@ public class PlayerEating : MonoBehaviour
         }
         else if (isDead)
         {
-            intensity = 0.1f * _elapsed;
+            intensity = 0.2f * _elapsed;
         }
         else
         {
@@ -87,7 +88,8 @@ public class PlayerEating : MonoBehaviour
         if (intensity < 0f)
         {
             _isEating = false;
-            full.Play();
+            StartCoroutine(PlayFull());
+            //full.Play();
             intensity = 0f;
         }
         //change vignette and bloom
@@ -122,6 +124,7 @@ public class PlayerEating : MonoBehaviour
             }
             else
             {
+                starved = true;
                 Debug.Log("Time has run out! You died of starvation");
                 timeRemaining = 0;
                 timerIsRunning = false;
@@ -163,5 +166,11 @@ public class PlayerEating : MonoBehaviour
             timeRemaining = 0f;
             isDead =true;
         }
+    }
+
+    IEnumerator PlayFull()
+    {
+        yield return new WaitForSeconds(0.75f);
+        full.Play();
     }
 }

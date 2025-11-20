@@ -13,7 +13,7 @@ public class ButtonMasher : MonoBehaviour
     public BodySourceView BSV;
 
     //bool countdownActive = false;
-    float countdownTimer = 4;
+    //float countdownTimer = 4;
     float elapsedTime;
 
     //struggle sound

@@ -29,7 +29,7 @@ public class BodySourceView : MonoBehaviour
     private bool _moving;
 
     //struggle & sounds
-    public float movevar = 3f;
+    public float movevar = 2f;
     public UnityEngine.AudioSource struggleButton;
     //struggle coroutine from buttonmasher use
     public ButtonMasher buttonMasher;

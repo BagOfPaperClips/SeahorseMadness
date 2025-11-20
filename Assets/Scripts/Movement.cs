@@ -11,11 +11,12 @@ public class Movement : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
     public BodySourceView BSV;
+    public PlayerEating PE;
 
     #region SoundInfo
     //movement sounds
     public AudioSource moveSound;
-    private bool _moving;
+    private float maxMove;
 
     //random environment sounds
     public AudioSource ambiance1;
@@ -45,6 +46,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         BSV = GetComponent<BodySourceView>();
+        PE = GetComponent<PlayerEating>();
         Debug.Log(BSV);
 
         //sound
@@ -52,12 +54,14 @@ public class Movement : MonoBehaviour
         ambiance1.Play();
         tbplaymin = 5;
         tbplaymax = 8;
+        moveSound.volume = 0;
+        maxMove = 1f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (BSV.struggleAmount == false)
+        if (BSV.struggleAmount == false && PE.starved == false)
         {
             float xDirection = Input.GetAxis("Horizontal");
             float zDirection = Input.GetAxis("Vertical");
@@ -79,16 +83,13 @@ public class Movement : MonoBehaviour
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
                 controller.Move(moveDir* speed * Time.deltaTime);
                 //transform.position += moveDir.normalized * speed; //movement
-                if (_moving == false)
-                {
-                    moveSound.Play();
-                    _moving = true;
-                }
+                moveSound.volume += 0.01f;
+                if (moveSound.volume > maxMove) moveSound.volume = maxMove;
             }
             else
             {
-                moveSound.Pause();
-                _moving = false;
+                moveSound.volume -= 0.08f;
+                if (moveSound.volume < 0f) moveSound.volume = 0f;
             }
         }
         else
@@ -120,11 +121,16 @@ public class Movement : MonoBehaviour
         {
             if (_ambiance1 == false)
             {
-                _ambiance2 = true;
+                _ambiance1 = true;
                 Debug.Log("Ambiance area 2");
-                tbplaymin = 10;
-                tbplaymax = 15;
+                tbplaymin = 15;
+                tbplaymax = 20;
+                maxMove = 0.7f;
                 StartCoroutine(PlaySound());
+                for (int i = 0; i < sources.Length; i++)
+                {
+                    sources[i].volume -= 0.05f;
+                }
             }
         }
         if (collision.CompareTag("AudioZone2"))
@@ -135,9 +141,14 @@ public class Movement : MonoBehaviour
                 ambiance2.Play();
                 _ambiance2 = true;
                 Debug.Log("Ambiance area 3");
-                tbplaymin = 15;
+                tbplaymin = 20;
                 tbplaymax = 30;
+                maxMove = 0.4f;
                 StartCoroutine(PlaySound());
+                for (int i = 0; i < sources.Length; i++)
+                {
+                    sources[i].volume -= 0.1f;
+                }
             }
         }
         if (collision.CompareTag("FinalDeath"))
@@ -175,7 +186,7 @@ public class Movement : MonoBehaviour
         clipIndex = Random.Range(0, struggles.Length);
         Debug.Log("Struggle " + clipIndex);
         struggles[clipIndex].Play();
-        yield return new WaitForSeconds(Random.Range(1, 3));
+        yield return new WaitForSeconds(Random.Range(2, 3));
         _struggling = false;
     }
 }
