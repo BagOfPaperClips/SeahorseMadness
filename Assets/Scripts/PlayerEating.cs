@@ -28,6 +28,7 @@ public class PlayerEating : MonoBehaviour
     //final death
     private bool isDead=false;
     public bool starved = false;
+    public bool canMove = false;
 
     //scripts
     public SceneTransitioner sceneTransitioner;
@@ -82,6 +83,10 @@ public class PlayerEating : MonoBehaviour
         else
         {
             intensity -= (0.02f * _elapsed);
+        }
+        if(canMove==false && _elapsed > 3f){
+            Debug.Log("Can move");
+            canMove = true;
         }
         //max vignette sizes
         if (intensity > 1f) intensity = 1f;

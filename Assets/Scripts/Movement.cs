@@ -61,7 +61,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (BSV.struggleAmount == false && PE.starved == false)
+        if (BSV.struggleAmount == false && PE.starved == false && PE.canMove == true)
         {
             float xDirection = Input.GetAxis("Horizontal");
             float zDirection = Input.GetAxis("Vertical");
